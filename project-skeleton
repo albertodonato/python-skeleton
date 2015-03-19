@@ -1,0 +1,64 @@
+#!/usr/bin/env python
+#
+# Set up and update boilerplate files for a python project.
+#
+
+import os
+from string import Template
+from argparse import ArgumentParser
+
+
+def main():
+    parser = get_parser()
+    args = parser.parse_args()
+    mapping = get_mapping(args)
+    setup_files(args.target, mapping)
+
+
+def get_parser():
+    '''Return the command line parser.'''
+    parser = ArgumentParser(
+        description='Build tree structure for a python project')
+    parser.add_argument('target', help='target project directory')
+    parser.add_argument('name', help='project short name')
+    parser.add_argument('title', help='project title')
+    return parser
+
+
+def setup_files(target_dir, mapping):
+    '''Copy files replacing template variables.'''
+    source_dir, script_name = os.path.split(__file__)
+
+    # Get the list of template files
+    with open(os.path.join(source_dir, 'skeleton-files')) as fd:
+        names = fd.read().splitlines()
+
+    for name in names:
+        target_name = name
+        if name.startswith('dot-'):
+            target_name = name.replace('dot-', '.', 1)
+
+        src = os.path.join(source_dir, name)
+        dst = os.path.join(target_dir, target_name)
+        print('processing {}'.format(dst))
+        replace_template(src, dst, mapping)
+
+
+def get_mapping(args):
+    '''Return variables for template rendering.'''
+    return {'name': args.name, 'title': args.title}
+
+
+def replace_template(src_name, dst_name, mapping):
+    '''Copy a file replacing template variables.'''
+    dst_dir = os.path.dirname(dst_name)
+    if not os.path.isdir(dst_dir):
+        os.makedirs(dst_dir)
+
+    with open(src_name) as src_fd, open(dst_name, 'w') as dst_fd:
+        template = Template(src_fd.read())
+        dst_fd.write(template.substitute(mapping))
+
+
+if __name__ == '__main__':
+    main()

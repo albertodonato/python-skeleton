@@ -1,0 +1,8 @@
+CHANGES.txt
+dot-gitignore
+LICENSE.txt
+Makefile
+MANIFEST.in
+README.rst
+setup.py
+skeleton/__init__.py

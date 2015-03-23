@@ -2,17 +2,29 @@
 #
 # Set up and update boilerplate files for a python project.
 #
+from __future__ import print_function
 
 import os
+import sys
+import yaml
 from string import Template
 from argparse import ArgumentParser
 
 
+class DottedIDsTemplate(Template):
+    '''A Template which allows dotted and dashed identifiers.'''
+
+    idpattern = '[a-z][_.a-z0-9-]*'
+
+
 def main():
-    parser = get_parser()
-    args = parser.parse_args()
-    mapping = get_mapping(args)
-    setup_files(args.target, mapping)
+    source_dir = os.path.dirname(__file__)
+
+    args = get_parser().parse_args()
+
+    config = get_config(args.config)
+    mapping = get_mapping(config)
+    setup_files(source_dir, args.target, mapping)
 
 
 def get_parser():
@@ -20,33 +32,67 @@ def get_parser():
     parser = ArgumentParser(
         description='Build tree structure for a python project')
     parser.add_argument('target', help='target project directory')
-    parser.add_argument('name', help='project short name')
-    parser.add_argument('title', help='project title')
+    parser.add_argument(
+        '-C', '--config', help='config file (default %(default)s)',
+        default='project.yaml')
     return parser
 
 
-def setup_files(target_dir, mapping):
+def get_config(config_file):
+    '''Return the project configuration.'''
+    log('Loading configuration from "{}"'.format(config_file))
+    with open(config_file) as fd:
+        return yaml.load(fd)
+
+
+def get_mapping(config):
+    '''Return the template variables mapping from the config.'''
+    return dict(flatten_dict(config))
+
+
+def log(message):
+    '''Print a log message to stderr.'''
+    print(message, file=sys.stderr)
+
+
+def flatten_dict(data, prefix=''):
+    '''Flatten a nested dict to an iterator yielding (key, value) tuples.'''
+    if isinstance(data, dict):
+        base_prefix = prefix
+        for key, value in data.iteritems():
+            if base_prefix:
+                prefix = '.'.join((base_prefix, key))
+            else:
+                prefix = key
+            for item in flatten_dict(value, prefix=prefix):
+                yield item
+    else:
+        yield prefix, data
+
+
+def setup_files(source_dir, target_dir, mapping):
     '''Copy files replacing template variables.'''
-    source_dir, script_name = os.path.split(__file__)
 
-    # Get the list of template files
-    with open(os.path.join(source_dir, 'skeleton-files')) as fd:
-        names = fd.read().splitlines()
+    if not os.path.exists(target_dir):
+        os.makedirs(target_dir)
 
-    for name in names:
+    for name in get_template_files(source_dir):
         target_name = name
         if name.startswith('dot-'):
             target_name = name.replace('dot-', '.', 1)
 
         src = os.path.join(source_dir, name)
         dst = os.path.join(target_dir, target_name)
-        print('processing {}'.format(dst))
+        log('Processing {}'.format(dst))
         replace_template(src, dst, mapping)
 
 
-def get_mapping(args):
-    '''Return variables for template rendering.'''
-    return {'name': args.name, 'title': args.title}
+def get_template_files(source_dir):
+    '''Return a list of template file names.'''
+    with open(os.path.join(source_dir, 'skeleton-files')) as fd:
+        return [
+            name for name in fd.read().splitlines()
+            if not name.startswith("#")]
 
 
 def replace_template(src_name, dst_name, mapping):
@@ -56,7 +102,7 @@ def replace_template(src_name, dst_name, mapping):
         os.makedirs(dst_dir)
 
     with open(src_name) as src_fd, open(dst_name, 'w') as dst_fd:
-        template = Template(src_fd.read())
+        template = DottedIDsTemplate(src_fd.read())
         dst_fd.write(template.substitute(mapping))
 
 

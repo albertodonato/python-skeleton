@@ -1,0 +1,9 @@
+project:
+  name: python-skeleton
+  title: Python Skeleton
+  url: https://bitbucket.org/ack/python-skeleton
+  download-url: https://bitbucket.org/ack/python-skeleton/downloads
+
+author:
+  name: Alberto Donato
+  email: alberto.donato@gmail.com

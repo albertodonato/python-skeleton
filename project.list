@@ -5,4 +5,5 @@ Makefile
 MANIFEST.in
 README.rst
 setup.py
-skeleton/__init__.py
+skeleton/*
+docs/*

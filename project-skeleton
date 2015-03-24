@@ -1,12 +1,20 @@
 #!/usr/bin/env python
 #
-# Set up and update boilerplate files for a python project.
+# Copyright (C) 2015 - Alberto Donato <alberto.donato@gmail.com>
 #
+# Set up repository structure for a Python project.
+#
+# Usage:
+#  * edit project.yaml with project/author details
+#  * run ./project-skeleton <target-dir>
+#
+
 from __future__ import print_function
 
 import os
 import sys
 import yaml
+from glob import iglob
 from string import Template
 from argparse import ArgumentParser
 
@@ -19,9 +27,7 @@ class DottedIDsTemplate(Template):
 
 def main():
     source_dir = os.path.dirname(__file__)
-
     args = get_parser().parse_args()
-
     config = get_config(args.config)
     mapping = get_mapping(config)
     setup_files(source_dir, args.target, mapping)
@@ -30,7 +36,7 @@ def main():
 def get_parser():
     '''Return the command line parser.'''
     parser = ArgumentParser(
-        description='Build tree structure for a python project')
+        description='Build tree structure for a Python project')
     parser.add_argument('target', help='target project directory')
     parser.add_argument(
         '-C', '--config', help='config file (default %(default)s)',
@@ -76,6 +82,7 @@ def setup_files(source_dir, target_dir, mapping):
     if not os.path.exists(target_dir):
         os.makedirs(target_dir)
 
+        log('Processing repository structure...')
     for name in get_template_files(source_dir):
         target_name = name
         if name.startswith('dot-'):
@@ -83,16 +90,26 @@ def setup_files(source_dir, target_dir, mapping):
 
         src = os.path.join(source_dir, name)
         dst = os.path.join(target_dir, target_name)
-        log('Processing {}'.format(dst))
-        replace_template(src, dst, mapping)
+        log('  {}'.format(dst))
+        if os.path.isdir(src) and not os.path.isdir(dst):
+            os.makedirs(dst)
+        elif os.path.isfile(src):
+            replace_template(src, dst, mapping)
 
 
 def get_template_files(source_dir):
     '''Return a list of template file names.'''
-    with open(os.path.join(source_dir, 'skeleton-files')) as fd:
-        return [
-            name for name in fd.read().splitlines()
-            if not name.startswith("#")]
+    names = []
+    with open(os.path.join(source_dir, 'project.list')) as fd:
+        for line in fd:
+            line = line.strip()
+            if line.startswith("#"):
+                continue
+
+            path = os.path.normpath(os.path.join(source_dir, line))
+            names.extend(iglob(path))
+
+    return names
 
 
 def replace_template(src_name, dst_name, mapping):

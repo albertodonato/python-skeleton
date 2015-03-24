@@ -3,6 +3,10 @@ ${project.title}
 
 Description of ${project.title}...
 
+`documentation <${project.doc-url}>`_ |
+`sources <${project.url}>`_ |
+`issues <${project.issues-url}>`_
+
 
 Install
 -------

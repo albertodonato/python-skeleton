@@ -27,12 +27,15 @@ devel:
 	$$(SETUP) develop
 
 clean:
-	rm -rf build *.egg-info _trial_temp
+	rm -rf build html *.egg-info _trial_temp
 
 test:
-	$$(SETUP) test
+	@$$(SETUP) test
 
 lint:
 	@$$(LINT) .
 
-.PHONY: build
+html:
+	sphinx-build -b html docs html
+
+.PHONY: build html

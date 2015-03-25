@@ -30,7 +30,7 @@ config = {
     'maintainer_email': '${author.email}',
     'url': '${project.url}',
     'download_url': '${project.download-url}',
-    'packages': find_packages(exclude=['*.tests.*', '*.tests', 'tests.*']),
+    'packages': find_packages(),
     'include_package_data': True,
     'entry_points': {'console_scripts': []},
     'test_suite': '${project.name}',

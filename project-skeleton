@@ -54,26 +54,6 @@ def get_mapping(config):
     return dict(flatten_dict(config))
 
 
-def log(message):
-    '''Print a log message to stderr.'''
-    sys.stderr.write('{}\n'.format(message))
-
-
-def flatten_dict(data, prefix=''):
-    '''Flatten a nested dict to an iterator yielding (key, value) tuples.'''
-    if isinstance(data, dict):
-        base_prefix = prefix
-        for key, value in data.iteritems():
-            if base_prefix:
-                prefix = '.'.join((base_prefix, key))
-            else:
-                prefix = key
-            for item in flatten_dict(value, prefix=prefix):
-                yield item
-    else:
-        yield prefix, data
-
-
 def setup_files(source_dir, target_dir, mapping):
     '''Copy files replacing template variables.'''
 
@@ -82,9 +62,7 @@ def setup_files(source_dir, target_dir, mapping):
 
         log('Processing repository structure...')
     for name in get_template_files(source_dir):
-        target_name = name
-        if name.startswith('dot-'):
-            target_name = name.replace('dot-', '.', 1)
+        target_name = get_target_name(name, mapping['project.name'])
 
         src = os.path.join(source_dir, name)
         dst = os.path.join(target_dir, target_name)
@@ -119,6 +97,33 @@ def replace_template(src_name, dst_name, mapping):
     with open(src_name) as src_fd, open(dst_name, 'w') as dst_fd:
         template = DottedIDsTemplate(src_fd.read())
         dst_fd.write(template.substitute(mapping))
+
+
+def get_target_name(name, project_name):
+    '''Return the name of the target file/directory from the source one.'''
+    target_name = name.replace('dot-', '.')
+    target_name = target_name.replace('skeleton', project_name)
+    return target_name
+
+
+def log(message):
+    '''Print a log message to stderr.'''
+    sys.stderr.write('{}\n'.format(message))
+
+
+def flatten_dict(data, prefix=''):
+    '''Flatten a nested dict to an iterator yielding (key, value) tuples.'''
+    if isinstance(data, dict):
+        base_prefix = prefix
+        for key, value in data.iteritems():
+            if base_prefix:
+                prefix = '.'.join((base_prefix, key))
+            else:
+                prefix = key
+            for item in flatten_dict(value, prefix=prefix):
+                yield item
+    else:
+        yield prefix, data
 
 
 if __name__ == '__main__':

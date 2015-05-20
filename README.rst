@@ -1,34 +1,24 @@
-${project.title}
+python-skeleton
 ================
 
-Description of ${project.title}...
+Helper script to setup a typical python project.
 
-`documentation <${project.doc-url}>`_ |
-`sources <${project.url}>`_ |
-`issues <${project.issues-url}>`_
-
-
-Install
--------
-
-${project.title} can be installed from `PyPI <https://pypi.python.org/>`_.
-
-As a user run::
-
-  $$ pip install ${project.name}
+It takes a few config options and generates a tree with template/boilerplate
+files for further customization.
 
 
-Development installation
-------------------------
+Usage
+-----
 
-The source tree is available available at
-`<${project.url}>`_, users should install `Virtualenv
-<https://virtualenv.pypa.io/>`_ for development.
+- edit the ``project.yaml`` with personal and project details
+- run
 
-As a user run::
+  $$ python-skeleton/project -C project.yaml <destdir>
 
-  $$ virtualenv <target-dir>
-  $$ . <target-dir>/bin/activate
-  $$ git clone ${project.url}.git
-  $$ cd ${project.name}
-  $$ python setup.py develop
+- cd <destdir>
+
+edit generated files there and add code.
+
+
+You can edit ``project.list`` to change which files are included in the
+generation.

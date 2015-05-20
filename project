@@ -1,13 +1,22 @@
 #!/usr/bin/env python3
 #
-# Copyright (C) 2015 - Alberto Donato <alberto.donato@gmail.com>
+# Author: Alberto Donato <alberto.donato@gmail.com>
 #
-# Set up repository structure for a Python project.
 #
-# Usage:
-#  * edit project.yaml with project/author details
-#  * run ./project-skeleton <target-dir>
+# This file is part of python-skeleton.
 #
+# python-skeleton is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation, either version 3 of the License, or (at your option) any
+# later version.
+#
+# python-skeleton is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with python-skeleton.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import sys
@@ -60,13 +69,13 @@ def setup_files(source_dir, target_dir, mapping):
     if not os.path.exists(target_dir):
         os.makedirs(target_dir)
 
-        log('Processing repository structure...')
-    for name in get_template_files(source_dir):
-        target_name = get_target_name(name, mapping['project.name'])
+    log('Processing repository structure...')
+    for src, dst in get_template_files(source_dir):
+        src = os.path.join(source_dir, src)
+        dst = get_target_name(dst, mapping['project.name'])
+        dst = os.path.join(target_dir, dst)
+        log(' {} -> {}'.format(src, dst))
 
-        src = os.path.join(source_dir, name)
-        dst = os.path.join(target_dir, target_name)
-        log('  {}'.format(dst))
         if os.path.isdir(src) and not os.path.isdir(dst):
             os.makedirs(dst)
         elif os.path.isfile(src):
@@ -74,8 +83,9 @@ def setup_files(source_dir, target_dir, mapping):
 
 
 def get_template_files(source_dir):
-    '''Return a list of template file names.'''
-    source_dir = os.path.normpath(source_dir)
+    '''Return a list of (source, destination) template file names tuples.'''
+    source_dir = os.path.realpath(source_dir)
+    source_tree_dir = os.path.join(source_dir, 'tree')
 
     names = []
     with open(os.path.join(source_dir, 'project.list')) as fd:
@@ -84,10 +94,11 @@ def get_template_files(source_dir):
             if line.startswith("#"):
                 continue
 
-            path = os.path.normpath(os.path.join(source_dir, line))
+            path = os.path.normpath(os.path.join(source_tree_dir, line))
             # Strip the source dir from paths
             names.extend(
-                name.replace(source_dir + os.path.sep, '', 1)
+                (name,
+                 name.replace(source_tree_dir + os.path.sep, '', 1))
                 for name in iglob(path))
 
     return names

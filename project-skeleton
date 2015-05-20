@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Copyright (C) 2015 - Alberto Donato <alberto.donato@gmail.com>
 #
@@ -75,6 +75,8 @@ def setup_files(source_dir, target_dir, mapping):
 
 def get_template_files(source_dir):
     '''Return a list of template file names.'''
+    source_dir = os.path.normpath(source_dir)
+
     names = []
     with open(os.path.join(source_dir, 'project.list')) as fd:
         for line in fd:
@@ -83,7 +85,10 @@ def get_template_files(source_dir):
                 continue
 
             path = os.path.normpath(os.path.join(source_dir, line))
-            names.extend(iglob(path))
+            # Strip the source dir from paths
+            names.extend(
+                name.replace(source_dir + os.path.sep, '', 1)
+                for name in iglob(path))
 
     return names
 
@@ -115,7 +120,7 @@ def flatten_dict(data, prefix=''):
     '''Flatten a nested dict to an iterator yielding (key, value) tuples.'''
     if isinstance(data, dict):
         base_prefix = prefix
-        for key, value in data.iteritems():
+        for key, value in data.items():
             if base_prefix:
                 prefix = '.'.join((base_prefix, key))
             else:

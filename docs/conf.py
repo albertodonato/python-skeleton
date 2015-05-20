@@ -37,8 +37,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'${project.title}'
-copyright = u'{}, ${author.name}'.format(datetime.today().year)
+project = '${project.title}'
+copyright = '{}, ${author.name}'.format(datetime.today().year)
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -83,8 +83,8 @@ htmlhelp_basename = '${project.name}doc'
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', '${project.name}', u'${project.title} Documentation',
-     [u'${author.name}'], 1)
+    ('index', '${project.name}', '${project.title} Documentation',
+     ['${author.name}'], 1)
 ]
 
 # If true, show URL addresses after external links.

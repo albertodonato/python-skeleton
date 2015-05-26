@@ -1,5 +1,5 @@
 python-skeleton
-================
+===============
 
 Helper script to setup a typical python project.
 
@@ -13,12 +13,18 @@ Usage
 - edit the ``project.yaml`` with personal and project details
 - run
 
-  $$ python-skeleton/project -C project.yaml <destdir>
+  $$ python-skeleton/project -C project.yaml bootstrap <destdir>
 
-- cd <destdir>
+- ``cd destdir`` and edit generated files there and add code
+- optionally, run
 
-edit generated files there and add code.
+  $$ python-skeleton/project -C project.yaml license <destdir> <patterns>
 
+to add or update the copyright notice at the beginning of files matching the
+specified patterns.
 
-You can edit ``project.list`` to change which files are included in the
-generation.
+A typical usage would be passing ``Makefile '*.py'`` as patterns.
+
+  
+**Note**: You can edit ``project.list`` to change which files are included in
+ the generation.

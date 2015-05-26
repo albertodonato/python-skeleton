@@ -22,6 +22,7 @@ import os
 import sys
 import yaml
 from glob import iglob
+from fnmatch import fnmatch
 from string import Template
 from argparse import ArgumentParser
 
@@ -35,19 +36,74 @@ class DottedIDsTemplate(Template):
 def main():
     source_dir = os.path.dirname(__file__)
     args = get_parser().parse_args()
+
     config = get_config(args.config)
     mapping = get_mapping(config)
-    setup_files(source_dir, args.target, mapping)
+
+    # Call the appropriate action handler.
+    action = globals().get('action_{}'.format(args.action))
+    action(source_dir, mapping, args)
+
+
+def action_bootstrap(source_dir, mapping, args):
+    '''Action handler to bootstrap project.'''
+    log('Processing repository structure...')
+
+    target_dir = args.target
+
+    if not os.path.exists(target_dir):
+        os.makedirs(target_dir)
+    for src, dst in get_template_files(source_dir):
+        src = os.path.join(source_dir, src)
+        dst = get_target_name(dst, mapping['project.name'])
+        dst = os.path.join(target_dir, dst)
+        log(' {} -> {}'.format(src, dst))
+
+        if os.path.isdir(src) and not os.path.isdir(dst):
+            os.makedirs(dst)
+        elif os.path.isfile(src):
+            replace_template(src, dst, mapping)
+
+
+def action_license(source_dir, mapping, args):
+    '''Action handler to add/update license headers.'''
+    log('Processing license headers...')
+    template_file = os.path.join(source_dir, 'license-template.txt')
+    header = get_header(template_file, mapping['project.title'])
+
+    files = (os.path.join(*paths) for paths in match_files(
+        [args.target], args.patterns))
+    for path in files:
+        with open(path) as in_fd:
+            log(' {}'.format(path))
+
+            content = in_fd.read()
+            new_content = update_content(content, header)
+            with open(path, 'w') as out_fd:
+                out_fd.write(new_content)
 
 
 def get_parser():
     '''Return the command line parser.'''
     parser = ArgumentParser(
         description='Build tree structure for a Python project')
-    parser.add_argument('target', help='target project directory')
     parser.add_argument(
         '-C', '--config', help='config file (default %(default)s)',
         default='project.yaml')
+    subparsers = parser.add_subparsers(
+        metavar='ACTION', dest='action', help='action to perform')
+    subparsers.required = True  # Workaround for python bug
+    # Bootstrap
+    bootstrap_parser = subparsers.add_parser(
+        'bootstrap', help='bootstrap a project')
+    bootstrap_parser.add_argument('target', help='target project directory')
+
+    # Add/update license headers
+    license_parser = subparsers.add_parser(
+        'license', help='add or update license headers')
+    license_parser.add_argument('target', help='target project directory')
+    license_parser.add_argument(
+        'patterns', nargs='+', help='Patterns for files to match in base path')
     return parser
 
 
@@ -61,25 +117,6 @@ def get_config(config_file):
 def get_mapping(config):
     '''Return the template variables mapping from the config.'''
     return dict(flatten_dict(config))
-
-
-def setup_files(source_dir, target_dir, mapping):
-    '''Copy files replacing template variables.'''
-
-    if not os.path.exists(target_dir):
-        os.makedirs(target_dir)
-
-    log('Processing repository structure...')
-    for src, dst in get_template_files(source_dir):
-        src = os.path.join(source_dir, src)
-        dst = get_target_name(dst, mapping['project.name'])
-        dst = os.path.join(target_dir, dst)
-        log(' {} -> {}'.format(src, dst))
-
-        if os.path.isdir(src) and not os.path.isdir(dst):
-            os.makedirs(dst)
-        elif os.path.isfile(src):
-            replace_template(src, dst, mapping)
 
 
 def get_template_files(source_dir):
@@ -120,6 +157,35 @@ def get_target_name(name, project_name):
     target_name = name.replace('dot-', '.')
     target_name = target_name.replace('skeleton', project_name)
     return target_name
+
+
+def get_header(template_file, project_name):
+    '''Return content of the license text.'''
+    with open(template_file) as fd:
+        template = fd.read()
+    return template.format(project_name=project_name)
+
+
+def update_content(text, header):
+    '''Update the content of a file with the new header.'''
+    header_lines = header.splitlines()
+    lines = text.splitlines()
+    if not lines:
+        return text
+    for idx, line in enumerate(lines):
+        if line.startswith('#') or line == '':
+            continue
+        break
+    return '\n'.join(header_lines + lines[idx:]) + '\n'
+
+
+def match_files(dirpaths, patterns):
+    '''Search files by name based on shell patterns.'''
+    for dirpath in dirpaths:
+        for dirname, x, filenames in os.walk(dirpath):
+            for filename in filenames:
+                if any(fnmatch(filename, pattern) for pattern in patterns):
+                    yield dirname, filename
 
 
 def log(message):

@@ -12,7 +12,7 @@ devel:
 	$$(SETUP) develop
 
 clean:
-	rm -rf build html *.egg-info _trial_temp
+	rm -rf build html *.egg-info
 
 test:
 	@$$(SETUP) test

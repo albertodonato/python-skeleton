@@ -1,6 +1,6 @@
 PYTHON = python3
 SETUP = $$(PYTHON) setup.py
-LINT = $(PYTHON) -m flake8
+LINT = $$(PYTHON) -m flake8
 
 
 all: build

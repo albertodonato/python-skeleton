@@ -35,7 +35,7 @@ class DottedIDsTemplate(Template):
 
 def main():
     source_dir = os.path.dirname(__file__)
-    args = get_parser().parse_args()
+    args = get_parser(source_dir).parse_args()
 
     config = get_config(args.config)
     mapping = get_mapping(config)
@@ -68,8 +68,7 @@ def action_bootstrap(source_dir, mapping, args):
 def action_license(source_dir, mapping, args):
     '''Action handler to add/update license headers.'''
     log('Processing license headers...')
-    template_file = os.path.join(source_dir, 'license-template.txt')
-    header = get_header(template_file, mapping['project.title'])
+    header = get_header(args.template, mapping['project.title'])
 
     files = (os.path.join(*paths) for paths in match_files(
         [args.target], args.patterns))
@@ -83,7 +82,7 @@ def action_license(source_dir, mapping, args):
                 out_fd.write(new_content)
 
 
-def get_parser():
+def get_parser(source_dir):
     '''Return the command line parser.'''
     parser = ArgumentParser(
         description='Build tree structure for a Python project')
@@ -104,6 +103,9 @@ def get_parser():
     license_parser.add_argument('target', help='target project directory')
     license_parser.add_argument(
         'patterns', nargs='+', help='Patterns for files to match in base path')
+    license_parser.add_argument(
+        '-T', '--template', help='license template file (default %(default)s)',
+        default=os.path.join(source_dir, 'license-template.txt'))
     return parser
 
 

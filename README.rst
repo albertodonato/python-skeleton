@@ -11,17 +11,11 @@ Usage
 -----
 
 - edit the ``project.yaml`` with personal and project details
-- run
-
-  $$ python-skeleton/project -C project.yaml bootstrap <destdir>
-
+- run ``python-skeleton/project -C project.yaml bootstrap <destdir>``
 - ``cd destdir`` and edit generated files there and add code
-- optionally, run
-
-  $$ python-skeleton/project -C project.yaml license <destdir> <patterns>
-
-to add or update the copyright notice at the beginning of files matching the
-specified patterns.
+- optionally, ``python-skeleton/project -C project.yaml license <destdir>
+  <patterns>`` to add or update the copyright notice at the beginning of files
+  matching the specified patterns.
 
 A typical usage would be passing ``Makefile '*.py'`` as patterns.
 

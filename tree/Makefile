@@ -19,7 +19,7 @@ test:
 	@$$(SETUP) test
 
 lint:
-	@$$(LINT) .
+	@$$(LINT) setup.py ${project.name}
 
 html:
 	sphinx-build -b html docs html

@@ -28,7 +28,7 @@ from argparse import ArgumentParser
 
 
 class DottedIDsTemplate(Template):
-    '''A Template which allows dotted and dashed identifiers.'''
+    '''A string Template which allows dotted and dashed identifiers.'''
 
     idpattern = '[a-z][_.a-z0-9-]*'
 

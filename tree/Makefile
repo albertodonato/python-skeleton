@@ -17,7 +17,8 @@ test:
 
 coverage:
 	@coverage run -m unittest
-	@coverage report --show-missing --skip-covered --include=${project.name}
+	@coverage report --show-missing --skip-covered --fail-under=100 \
+		--include=${project.name}/*
 
 lint:
 	flake8 setup.py ${project.name}

@@ -1,9 +1,6 @@
 PYTHON = python3
 SETUP = $$(PYTHON) setup.py
-LINT = $$(PYTHON) -m flake8
 
-
-all: build
 
 build:
 	$$(SETUP) build
@@ -16,12 +13,16 @@ clean:
 	find . -type d -name __pycache__ | xargs rm -rf
 
 test:
-	@$$(SETUP) test
+	@$$(PYTHON) -m unittest
+
+coverage:
+	@coverage run -m unittest
+	@coverage report --show-missing --skip-covered --include=${project.name}
 
 lint:
-	@$$(LINT) setup.py ${project.name}
+	flake8 setup.py ${project.name}
 
 html:
 	sphinx-build -b html docs html
 
-.PHONY: build html
+.PHONY: build devel clean test coverage lint html

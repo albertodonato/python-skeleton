@@ -21,7 +21,7 @@ coverage:
 		--include=${project.name}/*
 
 lint:
-	flake8 setup.py ${project.name}
+	@flake8 setup.py ${project.name}
 
 html:
 	sphinx-build -b html docs html

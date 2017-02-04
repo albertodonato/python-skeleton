@@ -20,5 +20,5 @@ Usage
   A typical invocation would pass ``Makefile '*.py'`` as patterns.
 
 
-**Note**: You can edit ``project.list`` to change which files are included in
- the generation.
+*Note*: You can edit ``project.list`` to change which files are included in the
+generation.

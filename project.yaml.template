@@ -1,0 +1,11 @@
+project:
+  name: python-skeleton
+  title: Python Skeleton
+  url: https://github.com/albertodonato/python-skeleton
+  download-url: 
+  doc-url: 
+  issues-url: https://github.com/albertodonato/python-skeleton/issues
+
+author:
+  name: Alberto Donato
+  email: alberto.donato@gmail.com

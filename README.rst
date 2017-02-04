@@ -10,15 +10,15 @@ files for further customization.
 Usage
 -----
 
-- edit the ``project.yaml`` with personal and project details
+- copy the ``project.yaml.template`` to ``project.yaml`` and edit it with
+  personal and project details.
 - run ``python-skeleton/project -C project.yaml bootstrap <destdir>``
-- ``cd destdir`` and edit generated files there and add code
-- optionally, ``python-skeleton/project -C project.yaml license <destdir>
+- ``cd destdir``, edit generated files as needed and add actual project files.
+- optionally, run ``python-skeleton/project -C project.yaml license <destdir>
   <patterns>`` to add or update the copyright notice at the beginning of files
   matching the specified patterns.
+  A typical invocation would pass ``Makefile '*.py'`` as patterns.
 
-A typical usage would be passing ``Makefile '*.py'`` as patterns.
 
-  
 **Note**: You can edit ``project.list`` to change which files are included in
  the generation.

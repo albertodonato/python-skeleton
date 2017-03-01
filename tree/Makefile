@@ -18,7 +18,7 @@ test:
 coverage:
 	@coverage run -m unittest
 	@coverage report --show-missing --skip-covered --fail-under=100 \
-		--include=${project.name}/* --omit=**/test_\*.py
+		--include=${project.name}/\* --omit=\*\*/tests/*
 
 lint:
 	@flake8 setup.py ${project.name}

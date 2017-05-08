@@ -1,9 +1,11 @@
 CHANGES.rst
+docs/*
 dot-gitignore
+dot-travis.yml
 LICENSE.txt
-Makefile
 MANIFEST.in
 README.rst
+requirements.txt
 setup.py
 skeleton/*
-docs/*
+tox.ini

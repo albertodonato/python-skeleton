@@ -1,5 +1,6 @@
 CHANGES.rst
 docs/*
+dot-coveragerc
 dot-gitignore
 dot-travis.yml
 LICENSE.txt

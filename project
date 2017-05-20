@@ -1,22 +1,4 @@
 #!/usr/bin/env python3
-#
-# Author: Alberto Donato <alberto.donato@gmail.com>
-#
-#
-# This file is part of python-skeleton.
-#
-# python-skeleton is free software: you can redistribute it and/or modify it
-# under the terms of the GNU General Public License as published by the Free
-# Software Foundation, either version 3 of the License, or (at your option) any
-# later version.
-#
-# python-skeleton is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-# more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with python-skeleton.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import sys
@@ -28,7 +10,7 @@ from argparse import ArgumentParser
 
 
 class DottedIDsTemplate(Template):
-    '''A string Template which allows dotted and dashed identifiers.'''
+    """A string Template which allows dotted and dashed identifiers."""
 
     idpattern = '[a-z][_.a-z0-9-]*'
 
@@ -46,7 +28,7 @@ def main():
 
 
 def action_bootstrap(source_dir, mapping, args):
-    '''Action handler to bootstrap project.'''
+    """Action handler to bootstrap project."""
     log('Processing repository structure...')
 
     target_dir = args.target
@@ -66,7 +48,7 @@ def action_bootstrap(source_dir, mapping, args):
 
 
 def action_license(source_dir, mapping, args):
-    '''Action handler to add/update license headers.'''
+    """Action handler to add/update license headers."""
     log('Processing license headers...')
     header = get_header(args.template, mapping['project.title'])
 
@@ -83,7 +65,7 @@ def action_license(source_dir, mapping, args):
 
 
 def get_parser(source_dir):
-    '''Return the command line parser.'''
+    """Return the command line parser."""
     parser = ArgumentParser(
         description='Build tree structure for a Python project')
     parser.add_argument(
@@ -110,19 +92,19 @@ def get_parser(source_dir):
 
 
 def get_config(config_file):
-    '''Return the project configuration.'''
+    """Return the project configuration."""
     log('Loading configuration from "{}"'.format(config_file))
     with open(config_file) as fd:
         return yaml.load(fd)
 
 
 def get_mapping(config):
-    '''Return the template variables mapping from the config.'''
+    """Return the template variables mapping from the config."""
     return dict(flatten_dict(config))
 
 
 def get_template_files(source_dir):
-    '''Return a list of (source, destination) template file names tuples.'''
+    """Return a list of (source, destination) template file names tuples."""
     source_dir = os.path.realpath(source_dir)
     source_tree_dir = os.path.join(source_dir, 'tree')
 
@@ -144,7 +126,7 @@ def get_template_files(source_dir):
 
 
 def replace_template(src_name, dst_name, mapping):
-    '''Copy a file replacing template variables.'''
+    """Copy a file replacing template variables."""
     dst_dir = os.path.dirname(dst_name)
     if not os.path.isdir(dst_dir):
         os.makedirs(dst_dir)
@@ -155,21 +137,21 @@ def replace_template(src_name, dst_name, mapping):
 
 
 def get_target_name(name, project_name):
-    '''Return the name of the target file/directory from the source one.'''
+    """Return the name of the target file/directory from the source one."""
     target_name = name.replace('dot-', '.')
     target_name = target_name.replace('skeleton', project_name)
     return target_name
 
 
 def get_header(template_file, project_name):
-    '''Return content of the license text.'''
+    """Return content of the license text."""
     with open(template_file) as fd:
         template = fd.read()
     return template.format(project_name=project_name)
 
 
 def update_content_header(text, header):
-    '''Update the content of a file with the new header.'''
+    """Update the content of a file with the new header."""
     if not text:
         return header
 
@@ -184,7 +166,7 @@ def update_content_header(text, header):
 
 
 def match_files(dirpaths, patterns):
-    '''Search files by name based on shell patterns.'''
+    """Search files by name based on shell patterns."""
     for dirpath in dirpaths:
         for dirname, x, filenames in os.walk(dirpath):
             for filename in filenames:
@@ -193,12 +175,12 @@ def match_files(dirpaths, patterns):
 
 
 def log(message):
-    '''Print a log message to stderr.'''
+    """Print a log message to stderr."""
     sys.stderr.write('{}\n'.format(message))
 
 
 def flatten_dict(data, prefix=''):
-    '''Flatten a nested dict to an iterator yielding (key, value) tuples.'''
+    """Flatten a nested dict to an iterator yielding (key, value) tuples."""
     if isinstance(data, dict):
         base_prefix = prefix
         for key, value in data.items():

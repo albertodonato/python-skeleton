@@ -1,6 +1,10 @@
-from setuptools import setup, find_packages
+from setuptools import (
+    setup,
+    find_packages)
 
-from ${project.name} import __version__, __doc__ as description
+from ${project.name} import (
+    __version__,
+    __doc__ as description)
 
 
 config = {

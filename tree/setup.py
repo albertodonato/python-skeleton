@@ -7,6 +7,8 @@ from ${project.name} import (
     __doc__ as description)
 
 
+tests_require = []
+
 config = {
     'name': '${project.name}',
     'version': __version__,
@@ -24,7 +26,8 @@ config = {
     'entry_points': {'console_scripts': []},
     'test_suite': '${project.name}',
     'install_requires': [],
-    'tests_require': [],
+    'tests_require': tests_require,
+    'extras_require': {'testing': tests_require},
     'keywords': '',
     'classifiers': [
         'Development Status :: 3 - Alpha',

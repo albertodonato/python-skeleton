@@ -1,6 +1,6 @@
 # Skeleton tree for python projects
 
-This is an helper script to setup a typical python project.
+This is a helper script to setup a typical python project.
 
 It takes a few config options and generates a tree with template/boilerplate
 files for further customization.
@@ -18,8 +18,7 @@ Usage
 
 - optionally, run `python-skeleton/project -C project.yaml license <destdir>
   <patterns>` to add or update the copyright notice at the beginning of files
-  matching the specified patterns.  A typical invocation would pass `Makefile
-  '*.py'` as patterns.
+  matching the specified patterns.  A typical invocation would pass '*.py'`.
 
 
 **Note**: You can edit `project.list` to change which files are included in the

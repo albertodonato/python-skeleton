@@ -2,7 +2,7 @@ language: python
 python:
   - "3.5"
   - "3.6"
-  - "3.7"
+  - "3.7-dev"
 matrix:
   fast_finish: true
 stages:
@@ -13,6 +13,9 @@ jobs:
   include:
     - stage: lint
       script: tox -e lint
+      python: "3.6"
+    - stage: check
+      script: tox -e check
       python: "3.6"
 script: tox -e coverage
 after_success: codecov

@@ -8,7 +8,6 @@ dot-travis.yml
 LICENSE.txt
 MANIFEST.in
 README.rst
-requirements.txt
 setup.py
 skeleton/*
 tox.ini

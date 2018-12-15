@@ -1,10 +1,13 @@
+from pathlib import Path
 from setuptools import (
+    find_packages,
     setup,
-    find_packages)
+)
 
 from ${project.name} import (
+    __doc__ as description,
     __version__,
-    __doc__ as description)
+)
 
 
 tests_require = []
@@ -14,7 +17,7 @@ config = {
     'version': __version__,
     'license': 'GPLv3+',
     'description': description,
-    'long_description': open('README.rst').read(),
+    'long_description': Path('README.rst').read_text(),
     'author': '${author.name}',
     'author_email': '${author.email}',
     'maintainer': '${author.name}',

@@ -1,22 +1,18 @@
 from pathlib import Path
+
 from setuptools import (
     find_packages,
     setup,
 )
 
-from ${project.name} import (
-    __doc__ as description,
-    __version__,
-)
 
-
-tests_require = []
+tests_require = ['pytest']
 
 config = {
     'name': '${project.name}',
-    'version': __version__,
+    'version': '0.0.1',
     'license': 'GPLv3+',
-    'description': description,
+    'description': '${project.title}',
     'long_description': Path('README.rst').read_text(),
     'author': '${author.name}',
     'author_email': '${author.email}',

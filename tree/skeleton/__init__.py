@@ -8,4 +8,4 @@ import pkg_resources
 __all__ = ['__version__']
 
 __version__ = LooseVersion(
-    pkg_resources.require('${project.name}')[0].version)
+    pkg_resources.require('${project.base}')[0].version)

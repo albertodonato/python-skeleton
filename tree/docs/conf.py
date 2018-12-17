@@ -14,7 +14,7 @@ from datetime import datetime
 # can find the code.
 sys.path.insert(0, os.path.abspath('..'))
 # Import the base module.
-import ${project.name}
+import ${project.base}
 
 # -- General configuration ------------------------------------------------
 
@@ -45,7 +45,7 @@ copyright = '{}, ${author.name}'.format(datetime.today().year)
 # built documents.
 #
 # The short X.Y version.
-release = ${project.name}.__version__
+release = ${project.base}.__version__
 # The full version, including alpha/beta/rc tags.
 version = release
 

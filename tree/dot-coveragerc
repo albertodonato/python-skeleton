@@ -1,5 +1,5 @@
 [run]
-source = ${project.name}
+source = ${project.base}
 
 [report]
 show_missing = True

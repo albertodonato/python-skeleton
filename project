@@ -37,7 +37,7 @@ def action_bootstrap(source_dir, mapping, args):
         os.makedirs(target_dir)
     for src, dst in get_template_files(source_dir):
         src = os.path.join(source_dir, src)
-        dst = get_target_name(dst, mapping['project.name'])
+        dst = get_target_name(dst, mapping['project.base'])
         dst = os.path.join(target_dir, dst)
         log(' {} -> {}'.format(src, dst))
 
@@ -100,6 +100,7 @@ def get_config(config_file):
 
 def get_mapping(config):
     """Return the template variables mapping from the config."""
+    config['project']['base'] = config['project']['name'].replace('-', '_')
     return dict(flatten_dict(config))
 
 
@@ -136,10 +137,10 @@ def replace_template(src_name, dst_name, mapping):
         dst_fd.write(template.substitute(mapping))
 
 
-def get_target_name(name, project_name):
+def get_target_name(name, project_base):
     """Return the name of the target file/directory from the source one."""
     target_name = name.replace('dot-', '.')
-    target_name = target_name.replace('skeleton', project_name)
+    target_name = target_name.replace('skeleton', project_base)
     return target_name
 
 

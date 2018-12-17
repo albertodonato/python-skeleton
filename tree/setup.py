@@ -23,7 +23,7 @@ config = {
     'packages': find_packages(),
     'include_package_data': True,
     'entry_points': {'console_scripts': []},
-    'test_suite': '${project.name}',
+    'test_suite': '${project.base}',
     'install_requires': [],
     'tests_require': tests_require,
     'extras_require': {'testing': tests_require},

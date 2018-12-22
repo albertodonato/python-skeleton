@@ -21,7 +21,7 @@ config = {
     'url': '${project.url}',
     'download_url': '${project.download-url}',
     'packages': find_packages(
-        include=['${project.base}','${project.base}.*']),
+        include=['${project.base}', '${project.base}.*']),
     'include_package_data': True,
     'entry_points': {'console_scripts': []},
     'test_suite': '${project.base}',

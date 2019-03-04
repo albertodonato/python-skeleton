@@ -37,7 +37,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = '${project.title}'
+project = '${project.name}'
 copyright = '{}, ${author.name}'.format(datetime.today().year)
 
 # The version info for the project you're documenting, acts as replacement for
@@ -83,7 +83,7 @@ htmlhelp_basename = '${project.name}doc'
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', '${project.name}', '${project.title} Documentation',
+    ('index', '${project.name}', '${project.name} Documentation',
      ['${author.name}'], 1)
 ]
 

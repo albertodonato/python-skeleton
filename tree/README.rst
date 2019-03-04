@@ -15,7 +15,7 @@ Documentation is available on ReadTheDocs_.
 Installation
 ------------
 
-${project.title} can be installed from PyPI_.
+${project.name} can be installed from PyPI_.
 
 As a user run::
 

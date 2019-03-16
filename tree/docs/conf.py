@@ -25,6 +25,8 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
+    'sphinx.ext.napoleon',
+    'sphinx_autodoc_typehints',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -75,7 +77,7 @@ html_static_path = ['_static']
 # html_use_opensearch = ''
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = '${project.name}doc'
+htmlhelp_basename = '${project.base}doc'
 
 
 # -- Options for manual page output ---------------------------------------
@@ -83,7 +85,7 @@ htmlhelp_basename = '${project.name}doc'
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', '${project.name}', '${project.name} Documentation',
+    ('index', '${project.base}', '${project.title} Documentation',
      ['${author.name}'], 1)
 ]
 

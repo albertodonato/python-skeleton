@@ -1,14 +1,11 @@
 CHANGES.rst
 docs/*
-dot-coveragerc
 dot-gitignore
-dot-isort.cfg
-dot-style.yapf
 dot-travis.yml
 LICENSE.txt
 MANIFEST.in
-mypy.ini
+pyproject.toml
 README.rst
+setup.cfg
 setup.py
 skeleton/*
-tox.ini

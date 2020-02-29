@@ -18,7 +18,7 @@ Usage
 
 - optionally, run `python-skeleton/project -C project.yaml license <destdir>
   <patterns>` to add or update the copyright notice at the beginning of files
-  matching the specified patterns.  A typical invocation would pass '*.py'`.
+  matching the specified patterns.  A typical invocation would pass `*.py`.
 
 
 **Note**: You can edit `project.list` to change which files are included in the

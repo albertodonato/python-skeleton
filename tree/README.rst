@@ -44,7 +44,7 @@ As a user run::
 .. |Latest Version| image:: https://img.shields.io/pypi/v/${project.name}.svg
    :target: https://pypi.python.org/pypi/${project.name}
 .. |Build Status| image:: https://img.shields.io/travis/albertodonato/${project.name}.svg
-   :target: https://travis-ci.org/albertodonato/${project.name}
+   :target: https://travis-ci.com/albertodonato/${project.name}
 .. |Coverage Status| image:: https://img.shields.io/codecov/c/github/albertodonato/${project.name}/master.svg
    :target: https://codecov.io/gh/albertodonato/${project.name}
 .. |Documentation Status| image:: https://readthedocs.org/projects/${project.name}/badge/?version=stable

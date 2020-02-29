@@ -1,11 +1,12 @@
 """${project.title}"""
 
+
 from distutils.version import LooseVersion
 
 import pkg_resources
 
+__all__ = ["PACKAGE", "__version__"]
 
-__all__ = ['__version__']
+PACKAGE = pkg_resources.get_distribution("${project.base}")
 
-__version__ = LooseVersion(
-    pkg_resources.require('${project.base}')[0].version)
+__version__ = LooseVersion(PACKAGE.version)

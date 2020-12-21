@@ -47,7 +47,7 @@ copyright = '{}, ${author.name}'.format(datetime.today().year)
 # built documents.
 #
 # The short X.Y version.
-release = ${project.base}.__version__
+release = str(${project.base}.__version__)
 # The full version, including alpha/beta/rc tags.
 version = release
 

@@ -34,7 +34,7 @@ As a user run::
   $$ . <target-dir>/bin/activate
   $$ git clone ${project.url}.git
   $$ cd ${project.name}
-  $$ python3 setup.py develop
+  $$ pip install -e .
 
 
 .. _ReadTheDocs: https://${project.name}.readthedocs.io/en/latest/

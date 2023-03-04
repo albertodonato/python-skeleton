@@ -1,5 +1,6 @@
 project:
   name: python-skeleton
+  # base: python_skeleton
   title: Python Skeleton
   url: https://github.com/albertodonato/python-skeleton
   download-url: 

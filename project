@@ -4,7 +4,6 @@ import os
 import sys
 import yaml
 from glob import iglob
-from fnmatch import fnmatch
 from string import Template
 from argparse import ArgumentParser
 
@@ -47,23 +46,6 @@ def action_bootstrap(source_dir, mapping, args):
             replace_template(src, dst, mapping)
 
 
-def action_license(source_dir, mapping, args):
-    """Action handler to add/update license headers."""
-    log('Processing license headers...')
-    header = get_header(args.template, mapping['project.title'])
-
-    files = (os.path.join(*paths) for paths in match_files(
-        [args.target], args.patterns))
-    for path in files:
-        with open(path) as in_fd:
-            log(f' {path}')
-
-            content = in_fd.read()
-            new_content = update_content_header(content, header)
-            with open(path, 'w') as out_fd:
-                out_fd.write(new_content)
-
-
 def get_parser(source_dir):
     """Return the command line parser."""
     parser = ArgumentParser(
@@ -78,16 +60,6 @@ def get_parser(source_dir):
     bootstrap_parser = subparsers.add_parser(
         'bootstrap', help='bootstrap a project')
     bootstrap_parser.add_argument('target', help='target project directory')
-
-    # Add/update license headers
-    license_parser = subparsers.add_parser(
-        'license', help='add or update license headers')
-    license_parser.add_argument('target', help='target project directory')
-    license_parser.add_argument(
-        'patterns', nargs='+', help='Patterns for files to match in base path')
-    license_parser.add_argument(
-        '-T', '--template', help='license template file (default %(default)s)',
-        default=os.path.join(source_dir, 'license-template.txt'))
     return parser
 
 
@@ -142,37 +114,6 @@ def get_target_name(name, project_base):
     target_name = name.replace('dot-', '.')
     target_name = target_name.replace('skeleton', project_base)
     return target_name
-
-
-def get_header(template_file, project_name):
-    """Return content of the license text."""
-    with open(template_file) as fd:
-        template = fd.read()
-    return template.format(project_name=project_name)
-
-
-def update_content_header(text, header):
-    """Update the content of a file with the new header."""
-    if not text:
-        return header
-
-    header_lines = header.splitlines()
-    header_lines.append('')  # add an empty line
-    lines = text.splitlines()
-    for idx, line in enumerate(lines):
-        if line.startswith('#') or line == '':
-            continue
-        break
-    return '\n'.join(header_lines + lines[idx:]) + '\n'
-
-
-def match_files(dirpaths, patterns):
-    """Search files by name based on shell patterns."""
-    for dirpath in dirpaths:
-        for dirname, x, filenames in os.walk(dirpath):
-            for filename in filenames:
-                if any(fnmatch(filename, pattern) for pattern in patterns):
-                    yield dirname, filename
 
 
 def log(message):

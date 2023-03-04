@@ -1,4 +1,4 @@
-.. ${project.title} documentation master file.
+.. ${project.name} documentation master file.
 
 .. _home:
 

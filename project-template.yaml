@@ -1,11 +1,12 @@
 project:
   name: python-skeleton
   # base: python_skeleton
-  title: Python Skeleton
+  title: Python project skeleton
   url: https://github.com/albertodonato/python-skeleton
-  download-url: 
-  doc-url: 
+  download-url:
+  doc-url:
   issues-url: https://github.com/albertodonato/python-skeleton/issues
+  python-version: "3.10"
 
 author:
   name: Alberto Donato

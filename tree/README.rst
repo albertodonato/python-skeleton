@@ -22,24 +22,8 @@ As a user run::
   $$ pip install ${project.name}
 
 
-Development installation
-------------------------
-
-The source tree is available available at `<${project.url}>`_, users should
-install Virtualenv_ for development.
-
-As a user run::
-
-  $$ virtualenv <target-dir>
-  $$ . <target-dir>/bin/activate
-  $$ git clone ${project.url}.git
-  $$ cd ${project.name}
-  $$ pip install -e .
-
-
 .. _ReadTheDocs: https://${project.name}.readthedocs.io/en/latest/
 .. _PyPI: https://pypi.python.org/
-.. _Virtualenv: https://virtualenv.pypa.io/
 
 .. |Latest Version| image:: https://img.shields.io/pypi/v/${project.name}.svg
    :alt: Latest Version

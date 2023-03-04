@@ -6,9 +6,9 @@
 # containing dir.
 #
 
+from datetime import datetime
 import os
 import sys
-from datetime import datetime
 
 # Add the directory containing the project tree so that the autodocs extension
 # can find the code.

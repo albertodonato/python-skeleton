@@ -1,11 +1,47 @@
-[tool.coverage.report]
-show_missing = true
-fail_under = 100.0
-skip_covered = true
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+  "setuptools",
+]
 
-[tool.coverage.run]
-source = ["${project.base}"]
-omit =
+[project]
+name = "${project.name}"
+description = "${project.title}"
+readme = "README.rst"
+keywords = [
+]
+license = {file = "LICENSE.txt"}
+maintainers = [
+    {name = "${author.name}", email = "${author.email}"},
+]
+authors = [
+    {name = "${author.name}", email = "${author.email}"},
+]
+requires-python = ">=${project.python-version}"
+classifiers = [
+ "Development Status :: 3 - Alpha",
+ "Programming Language :: Python :: 3",
+]
+dynamic = [
+  "version",
+]
+dependencies = [
+]
+[project.optional-dependencies]
+testing = [
+  "pytest",
+]
+[project.urls]
+changelog = "${project.url}/blob/main/CHANGES.rst"
+homepage = "${project.url}"
+repository = "${project.url}"
+[project.scripts]
+
+[tool.setuptools.dynamic]
+version = {attr = "${project.base}.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["${project.base}*"]
 
 [tool.isort]
 combine_as_imports = true
@@ -18,9 +54,21 @@ order_by_type = false
 profile = "black"
 use_parentheses = true
 
+[tool.flake8]
+ignore = ["E203", "E501", "W503"]
+max-line-length = 80
+select = ["C", "E", "F", "W", "B", "B950"]
+
+[tool.coverage.report]
+fail_under = 100.0
+show_missing = true
+skip_covered = true
+
+[tool.coverage.run]
+source = ["${project.base}"]
+
 [tool.mypy]
+ignore_missing_imports = true
 install_types = true
 non_interactive = true
-warn_return_any = true
-warn_unused_configs = true
-ignore_missing_imports = true
+strict = true

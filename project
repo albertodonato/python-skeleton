@@ -23,7 +23,7 @@ def main():
     mapping = get_mapping(config)
 
     # Call the appropriate action handler.
-    action = globals().get('action_{}'.format(args.action))
+    action = globals().get(f'action_{args.action}')
     action(source_dir, mapping, args)
 
 
@@ -39,7 +39,7 @@ def action_bootstrap(source_dir, mapping, args):
         src = os.path.join(source_dir, src)
         dst = get_target_name(dst, mapping['project.base'])
         dst = os.path.join(target_dir, dst)
-        log(' {} -> {}'.format(src, dst))
+        log(f' {src} -> {dst}')
 
         if os.path.isdir(src) and not os.path.isdir(dst):
             os.makedirs(dst)
@@ -56,7 +56,7 @@ def action_license(source_dir, mapping, args):
         [args.target], args.patterns))
     for path in files:
         with open(path) as in_fd:
-            log(' {}'.format(path))
+            log(f' {path}')
 
             content = in_fd.read()
             new_content = update_content_header(content, header)
@@ -93,7 +93,7 @@ def get_parser(source_dir):
 
 def get_config(config_file):
     """Return the project configuration."""
-    log('Loading configuration from "{}"'.format(config_file))
+    log(f'Loading configuration from "{config_file}"')
     with open(config_file) as fd:
         return yaml.safe_load(fd)
 
@@ -177,7 +177,7 @@ def match_files(dirpaths, patterns):
 
 def log(message):
     """Print a log message to stderr."""
-    sys.stderr.write('{}\n'.format(message))
+    sys.stderr.write(f'{message}\n')
 
 
 def flatten_dict(data, prefix=''):
@@ -189,8 +189,7 @@ def flatten_dict(data, prefix=''):
                 prefix = '.'.join((base_prefix, key))
             else:
                 prefix = key
-            for item in flatten_dict(value, prefix=prefix):
-                yield item
+            yield from flatten_dict(value, prefix=prefix)
     else:
         yield prefix, data
 

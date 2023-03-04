@@ -1,5 +1,8 @@
 # Skeleton tree for python projects
 
+[![Build status](https://github.com/albertodonato/python-skeleton/workflows/CI/badge.svg)](https://github.com/albertodonato/python-skeleton/actions?query=workflow%3ACI)
+
+
 This is a helper script to setup a typical python project.
 
 It takes a few config options and generates a tree with template/boilerplate

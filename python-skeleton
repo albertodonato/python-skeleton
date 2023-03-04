@@ -59,7 +59,9 @@ def bootstrap(
     """Bootstrap project."""
     target_dir.mkdir(parents=True, exist_ok=True)
 
-    for src, dst in get_template_files(source_dir, target_dir, context["project.package"]):
+    for src, dst in get_template_files(
+        source_dir, target_dir, context["project.package"]
+    ):
         logger.info(f" {src} -> {dst}")
         render_template(src, dst, context)
 

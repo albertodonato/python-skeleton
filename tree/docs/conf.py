@@ -14,7 +14,7 @@ import sys
 # can find the code.
 sys.path.insert(0, os.path.abspath('..'))
 # Import the base module.
-import ${project.base}
+import ${project.package}
 
 # -- General configuration ------------------------------------------------
 
@@ -47,7 +47,7 @@ copyright = '{}, ${author.name}'.format(datetime.today().year)
 # built documents.
 #
 # The short X.Y version.
-release = str(${project.base}.__version__)
+release = str(${project.package}.__version__)
 # The full version, including alpha/beta/rc tags.
 version = release
 
@@ -77,7 +77,7 @@ html_static_path = ['_static']
 # html_use_opensearch = ''
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = '${project.base}doc'
+htmlhelp_basename = '${project.package}doc'
 
 
 # -- Options for manual page output ---------------------------------------
@@ -85,7 +85,7 @@ htmlhelp_basename = '${project.base}doc'
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', '${project.base}', '${project.title} Documentation',
+    ('index', '${project.package}', '${project.title} Documentation',
      ['${author.name}'], 1)
 ]
 

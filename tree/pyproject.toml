@@ -38,10 +38,10 @@ repository = "${project.url}"
 [project.scripts]
 
 [tool.setuptools.dynamic]
-version = {attr = "${project.base}.__version__"}
+version = {attr = "${project.package}.__version__"}
 
 [tool.setuptools.packages.find]
-include = ["${project.base}*"]
+include = ["${project.package}*"]
 
 [tool.isort]
 combine_as_imports = true
@@ -65,7 +65,7 @@ show_missing = true
 skip_covered = true
 
 [tool.coverage.run]
-source = ["${project.base}"]
+source = ["${project.package}"]
 
 [tool.mypy]
 ignore_missing_imports = true

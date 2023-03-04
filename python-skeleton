@@ -59,7 +59,7 @@ def bootstrap(
     """Bootstrap project."""
     target_dir.mkdir(parents=True, exist_ok=True)
 
-    for src, dst in get_template_files(source_dir, target_dir, context["project.base"]):
+    for src, dst in get_template_files(source_dir, target_dir, context["project.package"]):
         logger.info(f" {src} -> {dst}")
         render_template(src, dst, context)
 
@@ -104,12 +104,12 @@ def get_args(source_dir: Path) -> Namespace:
 
 def get_context(config: dict[str, Any]) -> dict[str, Any]:
     """Return the template variables context from the config."""
-    config["project"].setdefault("base", config["project"]["name"].replace("-", "_"))
+    config["project"].setdefault("package", config["project"]["name"].replace("-", "_"))
     return dict(flatten_dict(config))
 
 
 def get_template_files(
-    source_dir: Path, target_dir: Path, project_base: str
+    source_dir: Path, target_dir: Path, package_name: str
 ) -> Iterator[tuple[Path, Path]]:
     """Yield tuples of (source, destination) template file names."""
     source_tree_dir = source_dir / "tree"
@@ -118,7 +118,7 @@ def get_template_files(
         yield (
             path,
             target_dir
-            / get_target_name(str(path.relative_to(source_tree_dir)), project_base),
+            / get_target_name(str(path.relative_to(source_tree_dir)), package_name),
         )
 
 

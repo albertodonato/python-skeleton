@@ -54,7 +54,10 @@ def main() -> int:
 
 
 def bootstrap(
-    source_dir: Path, target_dir: Path, context: dict[str, Any], logger: logging.Logger
+    source_dir: Path,
+    target_dir: Path,
+    context: dict[str, Any],
+    logger: logging.Logger,
 ) -> None:
     """Bootstrap project."""
     target_dir.mkdir(parents=True, exist_ok=True)
@@ -106,7 +109,9 @@ def get_args(source_dir: Path) -> Namespace:
 
 def get_context(config: dict[str, Any]) -> dict[str, Any]:
     """Return the template variables context from the config."""
-    config["project"].setdefault("package", config["project"]["name"].replace("-", "_"))
+    config["project"].setdefault(
+        "package", config["project"]["name"].replace("-", "_")
+    )
     return dict(flatten_dict(config))
 
 
@@ -120,7 +125,9 @@ def get_template_files(
         yield (
             path,
             target_dir
-            / get_target_name(str(path.relative_to(source_tree_dir)), package_name),
+            / get_target_name(
+                str(path.relative_to(source_tree_dir)), package_name
+            ),
         )
 
 
@@ -149,7 +156,9 @@ def get_target_name(name: str, project_base: str) -> str:
     return target_name
 
 
-def flatten_dict(data: dict[str, Any], prefix: str = "") -> Iterator[tuple[str, Any]]:
+def flatten_dict(
+    data: dict[str, Any], prefix: str = ""
+) -> Iterator[tuple[str, Any]]:
     """Flatten a nested dict to an iterator yielding (key, value) tuples."""
     if isinstance(data, dict):
         base_prefix = prefix

@@ -1,5 +1,5 @@
-${project.title}
-================
+${project.name} - ${project.title}
+==================================
 
 |Latest Version| |Build Status| |Coverage Status| |Documentation|
 

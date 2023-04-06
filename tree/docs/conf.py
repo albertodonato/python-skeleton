@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# ${project.title} documentation build configuration file.
+# ${project.name} documentation build configuration file.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -88,7 +88,7 @@ man_pages = [
     (
         "index",
         "${project.package}",
-        "${project.title} Documentation",
+        "${project.name} Documentation",
         ["${author.name}"],
         1,
     )

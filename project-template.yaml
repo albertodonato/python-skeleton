@@ -11,14 +11,8 @@ project:
   # project URL
   url: https://github.com/albertodonato/python-skeleton
 
-  # releases URL
-  download-url:
-
   # documentation URL
   doc-url:
-
-  # bug tracker URL
-  issues-url: https://github.com/albertodonato/python-skeleton/issues
 
   # the minimum Python version (also used for CI)
   python-version: "3.10"

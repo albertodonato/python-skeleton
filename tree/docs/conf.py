@@ -13,7 +13,7 @@ import ${project.package}
 project = "${project.name}"
 copyright = "{}, ${author.name}".format(datetime.today().year)
 author = "${author.name}"
-release = str(snaphelpers.__version__)
+release = ${project.package}.__version__
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

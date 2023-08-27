@@ -88,7 +88,7 @@ def get_args(source_dir: Path) -> Namespace:
         "-C",
         "--config",
         help="config file",
-        default=source_dir / "project.yaml",
+        default=str(source_dir / "project.yaml"),
         type=FileType(),
     )
     parser.add_argument(

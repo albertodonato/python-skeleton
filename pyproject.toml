@@ -18,7 +18,6 @@ max-line-length = 80
 select = ["C", "E", "F", "W", "B", "B950"]
 
 [tool.mypy]
-ignore_missing_imports = true
 install_types = true
 non_interactive = true
 strict = true

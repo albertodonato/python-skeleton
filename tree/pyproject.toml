@@ -43,6 +43,9 @@ version = {attr = "${project.package}.__version__"}
 [tool.setuptools.packages.find]
 include = ["${project.package}*"]
 
+[tool.setuptools.package-data]
+${project.package} = ["py.typed"]
+
 [tool.black]
 line-length = 79
 
@@ -71,7 +74,6 @@ skip_covered = true
 source = ["${project.package}"]
 
 [tool.mypy]
-ignore_missing_imports = true
 install_types = true
 non_interactive = true
 strict = true

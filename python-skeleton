@@ -6,15 +6,15 @@ from argparse import (
     FileType,
     Namespace,
 )
+from collections.abc import Iterator
+from io import TextIOWrapper
 import logging
 from pathlib import Path
 from string import Template
 import subprocess
 import sys
-from typing import (
-    Any,
-    Iterator,
-)
+import tomllib
+from typing import Any
 
 import yaml
 
@@ -36,12 +36,10 @@ def main() -> int:
     logger = logging.getLogger("python-skeleton")
 
     logger.info(f"Loading configuration from '{args.config.name}'")
-    config = yaml.safe_load(args.config)
-
+    config = get_config(args.config)
     context = get_context(config)
     if args.debug:
         logger.debug(f"Template context: {context}")
-
     logger.info("Processing repository structure...")
     target_dir = Path(args.target)
     bootstrap(source_dir, target_dir, context, logger)
@@ -51,6 +49,64 @@ def main() -> int:
         init_git_repo(target_dir)
 
     return 0
+
+
+def get_args(source_dir: Path) -> Namespace:
+    """Return the parsed command-line arguments."""
+    parser = ArgumentParser(
+        description="Build tree structure for a Python project",
+        formatter_class=ArgumentDefaultsHelpFormatter,
+    )
+    parser.add_argument(
+        "--debug",
+        help="enable debug messages",
+        default=False,
+        action="store_true",
+    )
+    parser.add_argument(
+        "--skip-git-init",
+        help="skip initializing git repository",
+        default=False,
+        action="store_true",
+    )
+    parser.add_argument(
+        "config",
+        help=(
+            "configuration file. Thise can either be a YAML file "
+            "for a new project, or the pyproject.toml file for an existing one"
+        ),
+        type=FileType("rb"),
+    )
+    parser.add_argument("target", help="target project directory")
+    return parser.parse_args()
+
+
+def get_config(config_file: TextIOWrapper) -> dict[str, Any]:
+    """Get the template context from the configuration file."""
+    if config_file.name.endswith(".toml"):
+        data = tomllib.load(config_file)  # type: ignore[arg-type]
+        project = data["project"]
+        config = {
+            "project": {
+                "name": project["name"],
+                "title": project["description"],
+                "url": project["urls"].get("homepage"),
+                "python-version": project["requires-python"].lstrip(">="),
+            },
+            "author": project["authors"][0],
+        }
+    else:
+        config = yaml.safe_load(config_file)
+    config_file.close()
+    return config
+
+
+def get_context(config: dict[str, Any]) -> dict[str, Any]:
+    """Return the template variables context from the config file."""
+    config["project"].setdefault(
+        "package", config["project"]["name"].replace("-", "_")
+    )
+    return dict(flatten_dict(config))
 
 
 def bootstrap(
@@ -72,47 +128,9 @@ def bootstrap(
 def init_git_repo(target_dir: Path) -> None:
     process = subprocess.run(
         ["git", "-C", str(target_dir), "init"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        capture_output=True,
     )
     process.check_returncode()
-
-
-def get_args(source_dir: Path) -> Namespace:
-    """Return the parsed command-line arguments."""
-    parser = ArgumentParser(
-        description="Build tree structure for a Python project",
-        formatter_class=ArgumentDefaultsHelpFormatter,
-    )
-    parser.add_argument(
-        "-C",
-        "--config",
-        help="config file",
-        default=str(source_dir / "project.yaml"),
-        type=FileType(),
-    )
-    parser.add_argument(
-        "--debug",
-        help="enable debug messages",
-        default=False,
-        action="store_true",
-    )
-    parser.add_argument(
-        "--skip-git-init",
-        help="skip initializing git repository",
-        default=False,
-        action="store_true",
-    )
-    parser.add_argument("target", help="target project directory")
-    return parser.parse_args()
-
-
-def get_context(config: dict[str, Any]) -> dict[str, Any]:
-    """Return the template variables context from the config."""
-    config["project"].setdefault(
-        "package", config["project"]["name"].replace("-", "_")
-    )
-    return dict(flatten_dict(config))
 
 
 def get_template_files(

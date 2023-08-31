@@ -11,9 +11,6 @@ project:
   # project URL
   url: https://github.com/albertodonato/python-skeleton
 
-  # documentation URL
-  doc-url:
-
   # the minimum Python version (also used for CI)
   python-version: "3.10"
 

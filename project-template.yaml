@@ -12,7 +12,7 @@ project:
   url: https://github.com/albertodonato/python-skeleton
 
   # the minimum Python version (also used for CI)
-  python-version: "3.10"
+  python-version: "3.11"
 
 author:
   # full name of the author/maintainer

@@ -19,8 +19,8 @@ authors = [
 ]
 requires-python = ">=${project.python-version}"
 classifiers = [
- "Development Status :: 3 - Alpha",
- "Programming Language :: Python :: 3",
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3",
 ]
 dynamic = [
   "version",

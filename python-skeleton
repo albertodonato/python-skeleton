@@ -90,15 +90,31 @@ def get_config(config_file: TextIOWrapper) -> dict[str, Any]:
             "project": {
                 "name": project["name"],
                 "title": project["description"],
-                "url": project["urls"].get("homepage"),
+                "url": get_pyproject_option(project, "urls", "homepage"),
                 "python-version": project["requires-python"].lstrip(">="),
             },
             "author": project["authors"][0],
         }
+
+        package_data = get_pyproject_option(
+            data, "tool", "setuptools", "package-data"
+        )
+        if package_data:
+            # use the first key found in the list
+            config["project"]["package"] = next(iter(package_data))
     else:
         config = yaml.safe_load(config_file)
     config_file.close()
     return config
+
+
+def get_pyproject_option(data: dict[str, Any], *keys: str) -> Any:
+    """Return a value from pyproject.toml content, if found."""
+    for key in keys:
+        if key not in data:
+            return None
+        data = data[key]
+    return data
 
 
 def get_context(config: dict[str, Any]) -> dict[str, Any]:

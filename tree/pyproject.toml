@@ -12,10 +12,10 @@ keywords = [
 ]
 license = {file = "LICENSE.txt"}
 maintainers = [
-    {name = "${author.name}", email = "${author.email}"},
+  {name = "${author.name}", email = "${author.email}"},
 ]
 authors = [
-    {name = "${author.name}", email = "${author.email}"},
+  {name = "${author.name}", email = "${author.email}"},
 ]
 requires-python = ">=${project.python-version}"
 classifiers = [

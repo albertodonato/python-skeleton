@@ -2,7 +2,7 @@
 name = "python-skeleton"
 description = "Python project skeleton"
 authors = [
-    {name = "Alberto Donato", email = "alberto.donato@gmail.com"},
+  {name = "Alberto Donato", email = "alberto.donato@gmail.com"},
 ]
 requires-python = ">=3.11"
 classifiers = [

@@ -1,7 +1,7 @@
 ${project.name} - ${project.title}
 ==================================
 
-|Latest Version| |Build Status| |Coverage Status| |Documentation|
+|Latest Version| |Build Status| |Documentation|
 
 Description of ${project.title}...
 
@@ -31,9 +31,6 @@ As a user run::
 .. |Build Status| image:: ${project.url}/workflows/CI/badge.svg
    :alt: Build Status
    :target: ${project.url}/actions?query=workflow%3ACI
-.. |Coverage Status| image:: https://img.shields.io/codecov/c/github/albertodonato/${project.name}/main.svg
-   :alt: Coverage Status
-   :target: https://codecov.io/gh/albertodonato/${project.name}
 .. |Documentation| image:: https://readthedocs.org/projects/${project.name}/badge/?version=stable
    :alt: Documentation
    :target: https://${project.name}.readthedocs.io/en/stable/?badge=stable

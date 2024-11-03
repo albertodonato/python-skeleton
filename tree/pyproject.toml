@@ -10,12 +10,12 @@ description = "${project.title}"
 readme = "README.rst"
 keywords = [
 ]
-license = {file = "LICENSE.txt"}
+license = { file = "LICENSE.txt" }
 maintainers = [
-  {name = "${author.name}", email = "${author.email}"},
+  { name = "${author.name}", email = "${author.email}" },
 ]
 authors = [
-  {name = "${author.name}", email = "${author.email}"},
+  { name = "${author.name}", email = "${author.email}" },
 ]
 requires-python = ">=${project.python-version}"
 classifiers = [
@@ -27,21 +27,21 @@ dynamic = [
 ]
 dependencies = [
 ]
-[project.optional-dependencies]
-testing = [
+optional-dependencies.testing = [
   "pytest",
 ]
-[project.urls]
-changelog = "${project.url}/blob/main/CHANGES.rst"
-homepage = "${project.url}"
-repository = "${project.url}"
+urls.changelog = "${project.url}/blob/main/CHANGES.rst"
+urls.homepage = "${project.url}"
+urls.repository = "${project.url}"
+
 [project.scripts]
 
+
 [tool.setuptools.dynamic]
-version = {attr = "${project.package}.__version__"}
+version = { attr = "${project.package}.__version__" }
 
 [tool.setuptools.packages.find]
-include = ["${project.package}*"]
+include = [ "${project.package}*" ]
 
 [tool.setuptools.package-data]
 ${project.package} = ["py.typed"]
@@ -49,12 +49,9 @@ ${project.package} = ["py.typed"]
 [tool.ruff]
 line-length = 79
 
-[tool.ruff.lint]
-select = ["I", "RUF", "UP"]
-
-[tool.ruff.lint.isort]
-combine-as-imports = true
-force-sort-within-sections = true
+lint.select = [ "I", "RUF", "UP" ]
+lint.isort.combine-as-imports = true
+lint.isort.force-sort-within-sections = true
 
 [tool.coverage.report]
 fail_under = 100.0
@@ -62,7 +59,7 @@ show_missing = true
 skip_covered = true
 
 [tool.coverage.run]
-source = ["${project.package}"]
+source = [ "${project.package}" ]
 
 [tool.mypy]
 install_types = true

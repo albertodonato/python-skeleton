@@ -2,26 +2,23 @@
 name = "python-skeleton"
 description = "Python project skeleton"
 authors = [
-  {name = "Alberto Donato", email = "alberto.donato@gmail.com"},
+  { name = "Alberto Donato", email = "alberto.donato@gmail.com" },
 ]
 requires-python = ">=3.11"
 classifiers = [
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
 ]
-[project.urls]
-homepage = "https://github.com/albertodonato/python-skeleton"
+urls.homepage = "https://github.com/albertodonato/python-skeleton"
 
 [tool.ruff]
 line-length = 79
 
-[tool.ruff.lint]
-select = ["I", "RUF", "UP"]
-
-[tool.ruff.lint.isort]
-combine-as-imports = true
-force-sort-within-sections = true
+lint.select = [ "I", "RUF", "UP" ]
+lint.isort.combine-as-imports = true
+lint.isort.force-sort-within-sections = true
 
 [tool.mypy]
 install_types = true

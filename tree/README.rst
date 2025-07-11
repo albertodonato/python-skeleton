@@ -28,9 +28,9 @@ As a user run::
 .. |Latest Version| image:: https://img.shields.io/pypi/v/${project.name}.svg
    :alt: Latest Version
    :target: https://pypi.python.org/pypi/${project.name}
-.. |Build Status| image:: ${project.url}/workflows/CI/badge.svg
+.. |Build Status| image:: ${project.url}/actions/workflows/ci.yml/badge.svg?branch=main
    :alt: Build Status
-   :target: ${project.url}/actions?query=workflow%3ACI
+   :target: ${project.url}/actions?query=workflow%3ACI+branch%3Amain
 .. |Documentation| image:: https://readthedocs.org/projects/${project.name}/badge/?version=stable
    :alt: Documentation
    :target: https://${project.name}.readthedocs.io/en/stable/?badge=stable

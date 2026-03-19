@@ -2,21 +2,26 @@ project:
   # The name of the package for install purposes (e.g. PyPI)
   name: python-skeleton
 
-  # name of the Python package, by default derived from the name
-  # package: python_skeleton
+  # Name of the Python package, by default derived from the name (replacing
+  # hyphens with upderscores)
+  package: python_skeleton
 
-  # brief description of the project (for README and docstring)
+  # Brief description of the project (for README title and package docstring)
   title: Python project skeleton
 
-  # project URL
+  # Project URL
   url: https://github.com/albertodonato/python-skeleton
 
-  # the minimum Python version (also used for CI)
-  python-version: "3.11"
+  # Supported Python versions (the highest one is used in CI jobs that don't use a matrix)
+  python-versions:
+    - "3.11"
+    - "3.12"
+    - "3.13"
+    - "3.14"
 
 author:
-  # full name of the author/maintainer
-  name: Alberto Donato
+  # Full name of the author/maintainer
+  name: "Alberto Donato"
 
-  # email of the author/maintainer
-  email: alberto.donato@gmail.com
+  # E-mail of the author/maintainer
+  email: "alberto@albertodonato.net"

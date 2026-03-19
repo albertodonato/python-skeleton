@@ -12,7 +12,6 @@ import logging
 from pathlib import Path
 from string import Template
 import subprocess
-import sys
 import tomllib
 from typing import Any
 
@@ -72,7 +71,7 @@ def get_args(source_dir: Path) -> Namespace:
     parser.add_argument(
         "config",
         help=(
-            "configuration file. Thise can either be a YAML file "
+            "configuration file. This can either be a YAML file "
             "for a new project, or the pyproject.toml file for an existing one"
         ),
         type=FileType("rb"),
@@ -207,4 +206,4 @@ def flatten_dict(
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

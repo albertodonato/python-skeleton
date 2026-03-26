@@ -1,7 +1,20 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+  "setuptools",
+]
+
 [project]
 name = "python-skeleton"
-version = "0.0.1"
 description = "Python project skeleton"
+readme = { file = "README.md", content-type = "text/markdown" }
+keywords = [
+  "project",
+  "python",
+  "skeleton",
+]
+license = "Apache-2.0"
+# license-files = [ "LICENSE.txt" ]
 maintainers = [
   { name = "Alberto Donato", email = "alberto@albertodonato.net" },
 ]
@@ -15,25 +28,42 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
 ]
-dependencies = [
-  "jinja2",
-  "pyyaml",
+dynamic = [
+  "version",
 ]
-urls.homepage = "https://github.com/albertodonato/python-skeleton"
+dependencies = [
+  "click",
+  "jinja2",
+  "packaging",
+  "pydantic",
+  "pyyaml",
+  "structlog",
+]
+urls."Issue Tracker" = "https://github.com/albertodonato/python-skeleton/issues"
+urls."Source Code" = "https://github.com/albertodonato/python-skeleton"
+urls.Documentation = "https://github.com/albertodonato/python-skeleton"
+urls.Homepage = "https://github.com/albertodonato/python-skeleton"
+scripts.python-skeleton = "python_skeleton.main:main"
 
 [dependency-groups]
 dev = [
   "pre-commit",
+  "pyproject-fmt",
   "ruff",
+  "tox-toml-fmt",
   "ty",
 ]
+types = [
+  "types-pyyaml",
+]
+
+[tool.setuptools]
+dynamic.version = { attr = "python_skeleton.__version__" }
+package-data.python_skeleton = [ "py.typed" ]
+packages.find.include = [ "python_skeleton*" ]
 
 [tool.ruff]
 line-length = 79
 lint.select = [ "F", "I", "RUF", "UP" ]
 lint.isort.combine-as-imports = true
 lint.isort.force-sort-within-sections = true
-
-[tool.mypy]
-ignore_missing_imports = true
-strict = true

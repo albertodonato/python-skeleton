@@ -3,11 +3,11 @@ requires = [ "tox>=4.6" ]
 [env_run_base]
 runner = "uv-venv-runner"
 package = "editable"
-commands = [ [ "python", "python_skeleton.py", { replace = "posargs", default = [], extend = true } ] ]
+commands = [ [ "python-skeleton", { replace = "posargs", default = [], extend = true } ] ]
 
 [env.check]
 dependency_groups = [ "dev" ]
-commands = [ [ "ty", "check", "python_skeleton.py", { replace = "posargs", default = [], extend = true } ] ]
+commands = [ [ "ty", "check", "python_skeleton", { replace = "posargs", default = [], extend = true } ] ]
 
 [env.lint]
 package = "skip"

@@ -24,6 +24,7 @@ updates:
           - "*"
     commit-message:
       prefix: chore
+{%- if config.use_uv_lock %}
   - package-ecosystem: uv
     directory: /
     schedule:
@@ -36,3 +37,4 @@ updates:
           - "*"
     commit-message:
       prefix: chore
+{% endif %}

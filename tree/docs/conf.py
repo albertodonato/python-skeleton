@@ -1,19 +1,19 @@
 from datetime import datetime
-import sys
 import os
+import sys
 # Add the directory containing the project tree so that the autodocs extension
 # can find the code.
 sys.path.insert(0, os.path.abspath(".."))
 # Import the base module.
-import ${project.package}
+import {{ project.package }}
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "${project.name}"
-copyright = "{}, ${author.name}".format(datetime.today().year)
-author = "${author.name}"
-release = ${project.package}.__version__
+project = "{{ project.name }}"
+copyright = f"{datetime.today().year}, {{ author.name }}"
+author = "{{ author.name }}"
+release = {{ project.package }}.__version__
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

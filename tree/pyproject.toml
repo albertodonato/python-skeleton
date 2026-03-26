@@ -5,64 +5,67 @@ requires = [
 ]
 
 [project]
-name = "${project.name}"
-description = "${project.title}"
+name = "{{ project.name }}"
+description = "{{ project.title }}"
 readme = { file = "README.rst", content-type = "text/x-rst" }
 keywords = [
 ]
-license = ""
+license = "{{ project.license }}"
 license-files = [ "LICENSE.txt" ]
 maintainers = [
-  { name = "${author.name}", email = "${author.email}" },
+  { name = "{{ author.name }}", email = "{{ author.email }}" },
 ]
 authors = [
-  { name = "${author.name}", email = "${author.email}" },
+  { name = "{{ author.name }}", email = "{{ author.email }}" },
 ]
-requires-python = ">=${project.python-version}"
+requires-python = ">={{ project.python_versions.min }}"
 classifiers = [
   "Development Status :: 3 - Alpha",
-  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  {% for version in project.python_versions.supported_versions -%}
+  "Programming Language :: Python :: {{ version }}",
+  {% endfor %}
 ]
 dynamic = [
   "version",
 ]
 dependencies = [
 ]
-optional-dependencies.testing = [
+{% for name, url in project.urls.items() -%}
+urls."{{ name }}" = "{{ url }}"
+{% endfor %}
+
+[dependency-groups]
+dev = [
+  "pre-commit",
+  "pyproject-fmt",
   "pytest",
+  "pytest-cov",
+  "ruff",
+  "tox-toml-fmt",
+  "ty",
 ]
-urls.changelog = "${project.url}/blob/main/CHANGES.rst"
-urls.homepage = "${project.url}"
-urls.repository = "${project.url}"
+tests = [
+]
+types = [
+]
 
-[project.scripts]
-
-
-[tool.setuptools.dynamic]
-version = { attr = "${project.package}.__version__" }
-
-[tool.setuptools.packages.find]
-include = [ "${project.package}*" ]
-
-[tool.setuptools.package-data]
-${project.package} = ["py.typed"]
+[tool.setuptools]
+dynamic.version = { attr = "{{ project.package }}.__version__" }
+package-data.{{ project.package }} = [ "py.typed" ]
+packages.find.include = [ "{{ project.package }}*" ]
 
 [tool.ruff]
 line-length = 79
-
 lint.select = [ "F", "I", "RUF", "UP" ]
 lint.isort.combine-as-imports = true
 lint.isort.force-sort-within-sections = true
 
-[tool.coverage.report]
-fail_under = 100.0
-show_missing = true
-skip_covered = true
+[tool.ty]
+rules.unresolved-import = "ignore"
 
-[tool.coverage.run]
-source = [ "${project.package}" ]
-
-[tool.mypy]
-install_types = true
-non_interactive = true
-strict = true
+[tool.coverage]
+run.source = [ "{{ project.packge }}" ]
+report.fail_under = 100.0
+report.show_missing = true
+report.skip_covered = true

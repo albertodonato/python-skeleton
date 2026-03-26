@@ -1,4 +1,4 @@
-vX.Y.Z - YYYY-MM-DD
-===================
-
+v{{ project.version }} - YYYY-MM-DD
+{{ '=' * (project.version | length + 14) }}
 -
+

@@ -2,26 +2,39 @@ project:
   # The name of the package for install purposes (e.g. PyPI)
   name: python-skeleton
 
+  # Package version. Defaults to 0.0.1
+  version: "0.0.1"
+
   # Name of the Python package, by default derived from the name (replacing
-  # hyphens with upderscores)
+  # hyphens with upderscores).
   package: python_skeleton
 
   # Brief description of the project (for README title and package docstring)
   title: Python project skeleton
 
-  # Project URL
-  url: https://github.com/albertodonato/python-skeleton
+  # The project license indicator
+  license: Apache-2.0
 
-  # Supported Python versions (the highest one is used in CI jobs that don't use a matrix)
+  # Project URL
+  urls:
+    Issue Tracker: https://github.com/albertodonato/python-skeleton/issues
+    Source Code: https://github.com/albertodonato/python-skeleton
+    Documentation: https://github.com/albertodonato/python-skeleton
+    Homepage: https://github.com/albertodonato/python-skeleton
+
+  # Supported Python versions
   python-versions:
-    - "3.11"
-    - "3.12"
-    - "3.13"
-    - "3.14"
+    min: "3.12"
+    max: "3.14"
 
 author:
   # Full name of the author/maintainer
-  name: "Alberto Donato"
+  name: Alberto Donato
 
   # E-mail of the author/maintainer
-  email: "alberto@albertodonato.net"
+  email: alberto@albertodonato.net
+
+
+config:
+  # Whether to use uv lock file
+  use-uv-lock: true

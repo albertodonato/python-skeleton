@@ -40,8 +40,10 @@ class TemplateRenderer:
         """Return the name of the target file/directory from the source one."""
 
         def rename(name: str) -> str:
-            name = self._DOTFILE_RE.sub(r".\1", name)
-            name = name.replace("project", self.package_name)
+            if name == "project":
+                name = self.package_name
+            else:
+                name = self._DOTFILE_RE.sub(r".\1", name)
             return name
 
         return self.project_dir / Path(

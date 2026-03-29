@@ -12,10 +12,10 @@ project:
   # Brief description of the project (for README title and package docstring)
   title: Python project skeleton
 
-  # The project license indicator
+  # Project license
   license: Apache-2.0
 
-  # Project URL
+  # Project URLs
   urls:
     Issue Tracker: https://github.com/albertodonato/python-skeleton/issues
     Source Code: https://github.com/albertodonato/python-skeleton
@@ -38,5 +38,6 @@ author:
 config:
   # Whether to include docs setup
   include-docs: true
+
   # Whether to use uv lock file
   use-uv-lock: true

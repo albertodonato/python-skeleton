@@ -14,7 +14,7 @@ keywords = [
   "skeleton",
 ]
 license = "Apache-2.0"
-# license-files = [ "LICENSE.txt" ]
+license-files = [ "LICENSE.txt" ]
 maintainers = [
   { name = "Alberto Donato", email = "alberto@albertodonato.net" },
 ]
@@ -23,6 +23,7 @@ authors = [
 ]
 requires-python = ">=3.12"
 classifiers = [
+  "Development Status :: 4 - Beta",
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
@@ -67,3 +68,6 @@ line-length = 79
 lint.select = [ "F", "I", "RUF", "UP" ]
 lint.isort.combine-as-imports = true
 lint.isort.force-sort-within-sections = true
+
+[tool.ty]
+rules.unresolved-import = "ignore"

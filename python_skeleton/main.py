@@ -88,10 +88,18 @@ def _generate_project_tree(
     logger: structlog.BoundLogger,
 ) -> None:
     """Generate the project tree."""
-    renderer = TemplateRenderer(templates_dir, project_dir, context.project.package)
+    renderer = TemplateRenderer(
+        templates_dir, project_dir, context.project.package
+    )
     for template_path in _iter_paths(templates_dir):
-        output_path = renderer.render(template_path.relative_to(templates_dir), context)
-        logger.info("rendered template", source=str(template_path), destination=str(output_path))
+        output_path = renderer.render(
+            template_path.relative_to(templates_dir), context
+        )
+        logger.info(
+            "rendered template",
+            source=str(template_path),
+            destination=str(output_path),
+        )
 
 
 def _iter_paths(base_path: Path) -> Iterator[Path]:

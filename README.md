@@ -13,12 +13,11 @@ Usage
 
 - edit `project-template.yaml` with project details.
 
-- run `tox -- project-template.yaml <destdir>`
+- run `tox -- --project-details project-template.yaml <project-dir>`
 
-- go into `<destdir>`, edit generated files as needed and add actual project
+- go into `<project-dir>`, edit generated files as needed and add actual project
   files.
 
-To re-generate files for an existing project (e.g. when template is updated),
-it's also possible to pass the project `pyproject.toml` file as source for the
-metadata.  This will require comparing the diff and restoring intentional
-changes.
+To update files for an existing project, avoid passing `--project-details`, in
+which case project details will be found from the existing project tree.  This
+will require comparing the diff and restoring intentional changes.

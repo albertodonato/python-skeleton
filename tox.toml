@@ -1,7 +1,7 @@
 requires = [ "tox>=4.6" ]
 
 [env_run_base]
-runner = "uv-venv-runner"
+runner = "uv-venv-lock-runner"
 package = "editable"
 commands = [ [ "python-skeleton", { replace = "posargs", default = [], extend = true } ] ]
 

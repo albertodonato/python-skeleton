@@ -25,7 +25,7 @@ from .template import TemplateRenderer
     type=click.Path(
         exists=True, file_okay=False, dir_okay=True, path_type=Path
     ),
-    default=Path("tree"),
+    default=Path("templates"),
     help="Directory containing project templates",
 )
 @click.option(
@@ -91,7 +91,7 @@ def _generate_project_tree(
     renderer = TemplateRenderer(
         templates_dir, project_dir, context.project.package
     )
-    for template_path in _iter_paths(templates_dir):
+    for template_path in _iter_paths(templates_dir, context):
         output_path = renderer.render(
             template_path.relative_to(templates_dir), context
         )
@@ -102,9 +102,14 @@ def _generate_project_tree(
         )
 
 
-def _iter_paths(base_path: Path) -> Iterator[Path]:
+def _iter_paths(base_path: Path, context: Context) -> Iterator[Path]:
     for path in base_path.rglob("*"):
         if path.is_dir():
+            continue
+
+        if not context.config.include_docs and (
+            "docs" in path.parts or path.name == "dot-readthedocs.yaml"
+        ):
             continue
 
         yield path

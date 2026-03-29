@@ -41,7 +41,7 @@ class TemplateRenderer:
 
         def rename(name: str) -> str:
             name = self._DOTFILE_RE.sub(r".\1", name)
-            name = name.replace("skeleton", self.package_name)
+            name = name.replace("project", self.package_name)
             return name
 
         return self.project_dir / Path(

@@ -76,6 +76,7 @@ class Author(HyphenModel):
 class Config(HyphenModel):
     """Configuration for the generated project."""
 
+    include_docs: bool = True
     use_uv_lock: bool = True
 
 
@@ -125,6 +126,7 @@ def _get_project_context(project_dir: Path) -> Context:
         ),
         author=Author.model_validate(project["authors"][0]),
         config=Config(
+            include_docs=(project_dir / "docs").exists(),
             use_uv_lock=(project_dir / "uv.lock").exists(),
         ),
     )

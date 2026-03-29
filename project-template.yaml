@@ -36,5 +36,7 @@ author:
 
 
 config:
+  # Whether to include docs setup
+  include-docs: true
   # Whether to use uv lock file
   use-uv-lock: true

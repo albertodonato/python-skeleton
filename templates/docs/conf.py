@@ -1,8 +1,6 @@
 from datetime import datetime
 import os
 import sys
-# Add the directory containing the project tree so that the autodocs extension
-# can find the code.
 sys.path.insert(0, os.path.abspath(".."))
 # Import the base module.
 import {{ project.package }}
@@ -33,5 +31,5 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = "sphinx_rtd_theme"
+html_theme = "alabaster"
 html_static_path = ["_static"]

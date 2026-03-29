@@ -45,6 +45,13 @@ dev = [
   "tox-toml-fmt",
   "ty",
 ]
+{%- if config.include_docs %}
+docs = [
+  "sphinx",
+  "sphinx-rtd-theme",
+  "sphinx-autodoc-typehints",
+]
+{% endif %}
 tests = [
 ]
 types = [

@@ -55,6 +55,6 @@ class TemplateRenderer:
         template = self.env.get_template(str(template_path))
         text = template.render(context)
         # Jinja strips ending newline from templates
-        if not text.endswith("\n"):
+        if text and not text.endswith("\n"):
             text += "\n"
         return text

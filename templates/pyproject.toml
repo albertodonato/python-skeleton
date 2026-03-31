@@ -72,7 +72,7 @@ lint.isort.force-sort-within-sections = true
 rules.unresolved-import = "ignore"
 
 [tool.coverage]
-run.source = [ "{{ project.packge }}" ]
+run.source = [ "{{ project.package }}" ]
 report.fail_under = 100.0
 report.show_missing = true
 report.skip_covered = true

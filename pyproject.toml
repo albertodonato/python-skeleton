@@ -69,5 +69,22 @@ lint.select = [ "F", "I", "RUF", "UP" ]
 lint.isort.combine-as-imports = true
 lint.isort.force-sort-within-sections = true
 
+[tool.pyproject-fmt]
+expand_tables = [ "tool.tox" ]
+
 [tool.ty]
 rules.unresolved-import = "ignore"
+
+[tool.tox.env.check]
+dependency_groups = [ "dev" ]
+commands = [ [ "ty", "check", "python_skeleton", { replace = "posargs", default = [], extend = true } ] ]
+
+[tool.tox.env.lint]
+package = "skip"
+dependency_groups = [ "dev" ]
+commands = [ [ "pre-commit", "run", "--all-files" ] ]
+
+[tool.tox.env_run_base]
+runner = "uv-venv-lock-runner"
+package = "editable"
+commands = [ [ "python-skeleton", { replace = "posargs", default = [], extend = true } ] ]

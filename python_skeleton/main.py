@@ -80,7 +80,7 @@ def main(
         init_git_repo(project_dir)
 
     if update:
-        update_project_files(project_dir)
+        update_project_files(project_dir, logger)
 
 
 def _get_logger(debug: bool) -> structlog.BoundLogger:

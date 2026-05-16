@@ -22,7 +22,7 @@ requires-python = ">={{ project.python_versions.min }}"
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Programming Language :: Python :: 3 :: Only",
-  {% for version in project.python_versions.supported_versions -%}
+  {% for version in project.python_versions.supported_versions %}
   "Programming Language :: Python :: {{ version }}",
   {% endfor %}
 ]
@@ -32,7 +32,7 @@ dynamic = [
 dependencies = [
 ]
 {% for name, url in project.urls.items() -%}
-urls."{{ name }}" = "{{ url }}"
+urls.{{ name }} = "{{ url }}"
 {% endfor %}
 
 [dependency-groups]
@@ -42,7 +42,6 @@ dev = [
   "pytest",
   "pytest-cov",
   "ruff",
-  "tox-toml-fmt",
   "ty",
 ]
 {%- if config.include_docs %}

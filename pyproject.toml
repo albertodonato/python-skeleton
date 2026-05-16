@@ -7,7 +7,7 @@ requires = [
 [project]
 name = "python-skeleton"
 description = "Python project skeleton"
-readme = { file = "README.md", content-type = "text/markdown" }
+readme = { file = "README.rst", content-type = "text/x-rst" }
 keywords = [
   "project",
   "python",
@@ -51,7 +51,6 @@ dev = [
   "pre-commit",
   "pyproject-fmt",
   "ruff",
-  "tox-toml-fmt",
   "ty",
 ]
 types = [

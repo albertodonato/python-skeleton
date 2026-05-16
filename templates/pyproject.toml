@@ -32,7 +32,7 @@ dynamic = [
 dependencies = [
 ]
 {% for name, url in project.urls.items() -%}
-urls.{{ name }} = "{{ url }}"
+urls."{{ name }}" = "{{ url }}"
 {% endfor %}
 
 [dependency-groups]

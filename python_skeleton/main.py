@@ -8,6 +8,7 @@ import structlog
 from .actions import init_git_repo
 from .context import Context, ContextError, get_context
 from .template import TemplateRenderer
+from .update import update_project_files
 
 
 @click.command()
@@ -37,12 +38,19 @@ from .template import TemplateRenderer
         "details will be parsed from the existing project"
     ),
 )
+@click.option(
+    "--update",
+    type=bool,
+    is_flag=True,
+    help="Also run updates on generated files",
+)
 @click.argument("project-dir", type=click.Path(path_type=Path))
 def main(
     debug: bool,
     skip_git_init: bool,
     templates: Path,
     project_details: Path | None,
+    update: bool,
     project_dir: Path,
 ) -> None:
     """Build tree structure for a Python project."""
@@ -70,6 +78,9 @@ def main(
     if not skip_git_init and not (project_dir / ".git").exists():
         logger.info("initializing git repository", path=str(project_dir))
         init_git_repo(project_dir)
+
+    if update:
+        update_project_files(project_dir)
 
 
 def _get_logger(debug: bool) -> structlog.BoundLogger:

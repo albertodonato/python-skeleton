@@ -1,28 +1,34 @@
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.7
+    rev: 5e2fb545eba1ea9dc051f6f962d52fe8f76a9794  # frozen: v0.15.13
     hooks:
       - id: ruff-check
         args: [ --fix ]
       - id: ruff-format
 
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.20.0
+    rev: a007bb7dd9043d022292401abc3061cb1906b4bc  # frozen: v2.21.2
     hooks:
       - id: pyproject-fmt
 
+  - repo: https://github.com/asottile/pyupgrade
+    rev: 75992aaa40730136014f34227e0135f63fc951b4  # frozen: v3.21.2
+    hooks:
+      - id: pyupgrade
+        args: [ {{ project.python_versions.pyupgrade_arg }} ]
+
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.4.2
+    rev: 2ccb47ff45ad361a21071a7eedda4c37e6ae8c5a  # frozen: v2.4.2
     hooks:
       - id: codespell
 
   - repo: https://github.com/rstcheck/rstcheck
-    rev: v6.2.5
+    rev: 27258fde1ee7d3b1e6a7bbc58f4c7b1dd0e719e5  # frozen: v6.2.5
     hooks:
       - id: rstcheck
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
+    rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c  # frozen: v6.0.0
     hooks:
       - id: check-toml
       - id: check-yaml

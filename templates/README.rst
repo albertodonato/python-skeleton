@@ -9,7 +9,7 @@
    :target: https://pypi.python.org/pypi/{{ project.name }}
 .. |Build Status| image:: {{ project.urls['Source Code'] }}/actions/workflows/ci.yaml/badge.svg?branch=main
    :alt: Build Status
-   :target: {{ project.urls['Source Code'] }}/actions?query=workflow%3ACI
+   :target: {{ project.urls['Source Code'] }}/actions?query=workflow%3ACI+branch%3Amain
 .. |PyPI Downloads| image:: https://static.pepy.tech/badge/{{ project.name }}/month
    :alt: PyPI Downloads
    :target: https://pepy.tech/projects/{{ project.name }}

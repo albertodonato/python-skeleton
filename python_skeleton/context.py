@@ -47,6 +47,11 @@ class PythonVersions(HyphenModel):
             minor += 1
         return versions
 
+    @property
+    def pyupgrade_arg(self) -> str:
+        ver = self.min.replace(".", "")
+        return f"--py{ver}-plus"
+
 
 class Project(HyphenModel):
     """Project details."""

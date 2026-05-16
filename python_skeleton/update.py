@@ -8,7 +8,9 @@ from structlog import BoundLogger
 
 def update_project_files(project_dir: Path, logger: BoundLogger) -> None:
     autoupdate(
-        project_dir / ".pre-commit-config.yaml", tags_only=True, freeze=True
+        str(project_dir / ".pre-commit-config.yaml"),
+        tags_only=True,
+        freeze=True,
     )
     if which("pinact"):
         workflows_dir = project_dir / ".github" / "workflows"

@@ -2,14 +2,14 @@ exclude: ^templates/
 
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 5e2fb545eba1ea9dc051f6f962d52fe8f76a9794  # frozen: v0.15.13
+    rev: 22f0422809455ec89ffdcf5a00170ba816e42ddb  # frozen: v0.15.16
     hooks:
       - id: ruff-check
         args: [ "--fix" ]
       - id: ruff-format
 
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: a007bb7dd9043d022292401abc3061cb1906b4bc  # frozen: v2.21.2
+    rev: 3a8ef795727fa946dfcb21c5d07b1442c2362c09  # frozen: v2.23.0
     hooks:
       - id: pyproject-fmt
 
@@ -25,7 +25,7 @@ repos:
       - id: codespell
 
   - repo: https://github.com/rstcheck/rstcheck
-    rev: 27258fde1ee7d3b1e6a7bbc58f4c7b1dd0e719e5  # frozen: v6.2.5
+    rev: 77490ffa33bfc0928975ae3cf904219903db755d  # frozen: v6.2.5
     hooks:
       - id: rstcheck
 

@@ -58,9 +58,9 @@ types = [
 ]
 
 [tool.setuptools]
-dynamic.version = { attr = "python_skeleton.__version__" }
-package-data.python_skeleton = [ "py.typed" ]
 packages.find.include = [ "python_skeleton*" ]
+package-data.python_skeleton = [ "py.typed" ]
+dynamic.version = { attr = "python_skeleton.__version__" }
 
 [tool.ruff]
 line-length = 79

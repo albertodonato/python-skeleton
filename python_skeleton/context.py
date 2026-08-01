@@ -177,7 +177,7 @@ def _get_project_version(project_dir: Path, package_name: str) -> str:
     raise ContextError(f"Version not found in {init_file}")
 
 
-def _get_nested_option(data: JSONDict, *keys: str) -> Any:
+def _get_nested_option(data: JSONDict, *keys: str) -> JSONDict | None:
     """Return a value from a nested dict, if found."""
     for key in keys:
         if key not in data:

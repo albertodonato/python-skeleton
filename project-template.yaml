@@ -25,7 +25,7 @@ project:
   # Supported Python versions
   python-versions:
     min: "3.12"
-    max: "3.14"
+    max: "3.15"
 
 author:
   # Full name of the author/maintainer
